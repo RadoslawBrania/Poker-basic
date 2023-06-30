@@ -9,7 +9,7 @@ namespace Poker_basic
 {
     internal class Deck
     {
-        private readonly List<Card> cards; 
+        public readonly List<Card> cards; 
         public Deck() { 
         cards= new List<Card>(52);
             Initdeck();

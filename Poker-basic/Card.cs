@@ -21,12 +21,14 @@ namespace Poker_basic
     {
         public int cardID;
         public int colour;
-        public Card(int cardID, int colour)
+        public Card(int cardID, int colour=0)
         {
             this.cardID = cardID;
             this.colour = colour;
         }
+        
     }
+   
 
 
 }
