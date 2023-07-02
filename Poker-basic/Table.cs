@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Poker_basic
         public int currentbet = 0;
         public List<Card> commoncards = new();
         public Deck deck = new();
+        public int blind = 50;
         public void AddPlayer(int tokens)
         {
             players.Add(new Player(tokens,players.Count));
@@ -38,11 +40,22 @@ namespace Poker_basic
         {
             foreach(var player in players)
             {
-                if (!player.hasMadedecision || player.isFolded)
+                if (!player.isFolded)
                 {
-                    return true;
+                    if (!player.hasMadedecision)
+                    {
+
+                        return true;
+                    }
                 }
             }
+            Console.WriteLine("Next Round");
+            Resetdecisionflags();
+            foreach (Player player1 in players)
+            {
+                player1.playerBet = 0;
+            }
+            this.currentbet= 0;
             return false;
         }
         public void Resetdecisionflags()
@@ -51,6 +64,12 @@ namespace Poker_basic
             {
                 player.hasMadedecision = false;
             }
+        }
+        public int Bet(Player currentplayer, int number)
+        {
+            int local = currentplayer.Bet(number);
+            this.pot += local;
+            return local;
         }
         public Player FindDealer()
         {
